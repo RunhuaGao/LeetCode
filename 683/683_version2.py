@@ -1,23 +1,18 @@
 class Solution:
-    def kEmptySlots(self, flowers: List[int], k: int) -> int:
+    def kEmptySlots(self, flowers: list, k: int) -> int:
         # version 2: Bucket
-        size = len(flowers)
-        if size==0 | k>=size: # corner case test
-            return -1
-        k+=1
-        bucket_size = (size+k-1)//k # calculate the number of bucket, this is to compress the status
-        low_bucket = [float("inf")]*bucket_size
-        high_bucket = [-float("inf")]*bucket_size
-        for i in range(size):
-            flower_pos = flowers[i]
-            bucket_pos = flowers[i]//k
+        n = len(flowers)
+        p = k + 1
+        bs = n // p + 1
+        max_b, min_b = [-float("inf")] * bs, [float("inf")] * bs
+        for i in range(n):
+            bp = flowers[i]//p
+            cp = flowers[i]
             day = i+1
-            if flower_pos < low_bucket[bucket_pos]:
-                low_bucket[bucket_pos] = flower_pos
-                if bucket_pos > 0 and high_bucket[bucket_pos-1]==flower_pos-k:
-                    return day
-            if flower_pos > high_bucket[bucket_pos]:
-                high_bucket[bucket_pos] = flower_pos
-                if bucket_pos < bucket_size-1 and low_bucket[bucket_pos+1]==flower_pos+k:
-                    return day
+            if cp > max_b[bp]:
+                max_b[bp] = cp
+                if bp+1 < bs and min_b[bp+1] == cp+p:return day
+            if cp < min_b[bp]:
+                min_b[bp] = cp
+                if bp-1>=0 and max_b[bp-1] == cp-p: return day
         return -1
