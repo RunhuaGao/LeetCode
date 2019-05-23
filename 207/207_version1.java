@@ -12,7 +12,7 @@ class Solution {
             nodes.get(curr).add(pre);
         }
         for(int i = 0;i<numCourses;i++){
-            if(dfs(i)==true)return false;
+            if(visited[i]!=2 && dfs(i)==true)return false;
         }
         return true;
     }
