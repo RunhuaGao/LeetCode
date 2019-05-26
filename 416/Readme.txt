@@ -7,3 +7,9 @@ dp[i] = or(dp[i-n] for n in nums if i-n>=0)
 
 Time Complexity: O(sum*size)
 Space Complexiy: O(sum)
+
+Tips: we can not change the iteration order becasue: each number in the array could be only used once
+If we change the iteration order， for example, the outter iteration is summation
+if the array is [1,2,5]
+then the first element will make each totalSum is reachable but it is to use 1 each time, this is not the case
+as there is only one "1" in the array
