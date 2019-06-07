@@ -16,7 +16,7 @@ class Solution:
                     while conti > 0:
                         stack.pop()
                         conti -= 1
-                conti = i
+                conti = 1
             stack.append(i)
             print(stack)
         if conti >= 3:
