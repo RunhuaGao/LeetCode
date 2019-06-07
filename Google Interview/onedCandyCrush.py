@@ -7,7 +7,7 @@ One dimensional candy crush problem
 class Solution:
     def crush(self, state: list):
         stack = []
-        conti = 0, 0
+        conti = 0
         for i in state:
             if not stack or i == stack[-1]:
                 conti += 1
