@@ -7,7 +7,7 @@ One dimensional candy crush problem
 class Solution:
     def crush(self, state: list):
         stack = []
-        conti = 0, 0
+        conti = 0
         for i in state:
             if not stack or i == stack[-1]:
                 conti += 1
@@ -16,7 +16,7 @@ class Solution:
                     while conti > 0:
                         stack.pop()
                         conti -= 1
-                conti = i
+                conti = 1
             stack.append(i)
             print(stack)
         if conti >= 3:
@@ -27,7 +27,7 @@ class Solution:
         return stack
 
 
-test = [1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4]
+test = [1, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 7, 7, 7]
 Solution().crush(test)
 
 """
