@@ -49,3 +49,11 @@ def test():
     Solution().sortList(head)
 
 test()
+
+
+"""
+Use slow & fast pointer method cut the list into two parts
+then with recursion and use mergeTwoList to merge sorted two parts lists
+Time: NlogN
+Space: N
+"""
