@@ -1,0 +1,14 @@
+class Solution:
+    def removeDuplicates(self, S: str) -> str:
+        charStack = []
+        index = 0
+        while index < len(S):
+            currentChar = S[index]
+            if len(charStack)==0:
+                charStack.append(currentChar)
+            elif currentChar == charStack[-1]:
+                charStack.pop()
+            else:
+                charStack.append(currentChar)
+            index+=1
+        return "".join(charStack)
