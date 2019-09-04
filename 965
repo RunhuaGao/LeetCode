@@ -1,0 +1,10 @@
+class Solution:
+    def isUnivalTree(self, root: TreeNode) -> bool:
+        if root is None:
+            return True
+        else:
+            flagLeft = True
+            flagRight = True
+            if root.left: flagLeft = root.val==root.left.val
+            if root.right: flagRight = root.val==root.right.val
+            return flagLeft and flagRight and self.isUnivalTree(root.left) and self.isUnivalTree(root.right)
