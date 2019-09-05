@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private final HashMap<Integer,Integer> levelSum = new HashMap<>();
+    public int maxLevelSum(TreeNode root) {
+        dfs(root,1);
+        int minLevel = Integer.MAX_VALUE;
+        int maxSum = Integer.MIN_VALUE;
+        for(Map.Entry<Integer,Integer> entry:levelSum.entrySet()){
+            int currLevel = entry.getKey();
+            int currSum = entry.getValue();
+            if(currSum > maxSum) {
+                minLevel = currLevel;
+                maxSum = currSum;
+            } else if(maxSum==currSum && currLevel < minLevel){
+                minLevel = currLevel;
+            } else {
+                continue;
+            }
+        }
+        return minLevel;
+    }
+    
+    private void dfs(TreeNode node,int level){
+        if(node!=null){
+            levelSum.put(level,levelSum.getOrDefault(level,0)+node.val);
+            dfs(node.left,level+1);
+            dfs(node.right,level+1);
+        }
+    }
+}
