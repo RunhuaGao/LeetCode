@@ -1,0 +1,16 @@
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int[] numberCount = new int[1001]; // both arr1[i],arr2[i] <= 1000
+        for(int i:arr1) numberCount[i]+=1;
+        int index = 0;
+        for(int i:arr2){
+            while(numberCount[i]-->0)
+                arr1[index++]=i;   
+        }
+        for(int n = 0;n < numberCount.length;n++){
+            while(numberCount[n]-- > 0)
+                arr1[index++] = n;
+        }
+        return arr1;
+    }
+}

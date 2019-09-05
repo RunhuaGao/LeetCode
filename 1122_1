@@ -1,0 +1,23 @@
+class Solution:
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        # Step 1: Move all elements not in arr2 to the end
+        numberSet = set(arr2)
+        complement = []
+        numberCount = {}
+        for i in arr1:
+            if i in numberSet:
+                numberCount[i] = numberCount.get(i,0)+1
+            else:
+                complement.append(i)
+        index = 0
+        complement.sort()
+        for i in arr2:
+            while numberCount[i] > 0:
+                arr1[index] = i
+                index+=1
+                numberCount[i]-=1
+        for i in complement:
+            arr1[index]=i
+            index+=1
+        return arr1
+            
