@@ -1,0 +1,14 @@
+class Solution {
+    private int sum = 0;
+    public TreeNode bstToGst(TreeNode root) {
+        if(root.right!=null) bstToGst(root.right);
+        root.val+=sum;
+        sum = root.val;
+        if(root.left!=null) bstToGst(root.left);
+        return root;
+    }
+    
+}
+// Use the property of BST: inorder iterate the node, the node begins from smallest to largest
+// Regard these nodes' values as a array, each node's value equals to it's rightside accmulative summation
+// Store the accumulative summation in an instance variable
