@@ -1,0 +1,24 @@
+class Solution {
+    public int numTilePossibilities(String tiles) {
+        int[] charCount = new int[26];
+        for(char c:tiles.toCharArray()) charCount[c-'A']++;
+        return dfs(charCount,"");
+    }
+    
+    
+    private int dfs(final int[] count,String preword){
+        int sum = 0;
+        for(int i = 0;i<26;i++){
+            if(count[i] > 0){
+                sum++;
+                //System.out.println(preword+String.valueOf('A'+i));
+                count[i]--;
+                sum+=dfs(count,preword+String.valueOf('A'+i));
+                count[i]++;
+            }
+        }
+        return sum;
+    }
+}
+// backtraking + dfs
+// length-2 words are based on length-1 word
