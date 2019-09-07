@@ -1,0 +1,22 @@
+class Solution:
+    def pathInZigZagTree(self, label: int) -> List[int]:
+        # Step 1: find the level
+        level = 0
+        base = 2
+        summation = 0
+        while(summation < label):
+            summation+=base**level
+            level+=1
+        res = []
+        while(label>0):
+            res.append(int(label))
+            label = 3*base**level//2 - 1 - label
+            label//=2
+            level-=1
+        return res[::-1]
+           
+// trick math problem
+// tip: the parent is also the node's complement node(in same level)//2
+// calculation at line 13 is based simple mathmatical calculation to calculate complement node in the binary tree
+// time complexity: O(logN)
+// space complexity: O(logN)  
