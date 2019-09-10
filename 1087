@@ -1,0 +1,30 @@
+class Solution:
+    def expand(self, S: str) -> List[str]:
+        self.res = []
+        self.string = S
+        self.start = "{";
+        self.end = "}";
+        self.recur("",0)
+        return sorted(self.res)
+    
+    def recur(self,res,index):
+        if index < len(self.string):
+            initial_char = self.string[index]
+            if initial_char == self.start:
+                index+=1
+                options = []
+                while self.string[index]!=self.end:
+                    char = self.string[index]
+                    if char.isalpha():
+                        options.append(char)
+                    index+=1
+                index+=1
+                for option in options:
+                    self.recur(res+option,index)
+            else:
+                self.recur(res+initial_char,index+1);
+        else:
+            self.res.append(res)
+#idea: use recursion function to store all previous result and concancate the previous result with new character
+# need to sort all answers when submitt
+# time complexity: nlogn(N), N is the number of answers
