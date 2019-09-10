@@ -1,0 +1,29 @@
+class Solution {
+    public int numKLenSubstrNoRepeats(String S, int K) {
+        // Idea: sliding window
+        int res = 0, index = 0,unique = 0;
+        // corner case: S.length < K
+        if(S.length() < K)
+            return res;
+        int[] charMap = new int[26];
+        while(index < S.length()){
+            int mapPos = S.charAt(index)-'a';
+            charMap[mapPos]++;
+            if(charMap[mapPos]==1) unique++;
+            if(index>=K){
+                int removePos = S.charAt(index-K)-'a';
+                charMap[removePos]--;
+                if(charMap[removePos]<=0){
+                    unique--;
+                    charMap[removePos] = 0;
+                }
+            }
+            if(unique==K) res++;
+            index++;
+        }
+        return res;
+    }
+}
+
+// idea: sliding window
+// little trick: use unique count to record unique characters and 26-length array to record number of each character
