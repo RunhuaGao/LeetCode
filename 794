@@ -1,0 +1,56 @@
+class Solution:
+    def validTicTacToe(self, board: List[str]) -> bool:
+        # step1: valid the number of X and O
+        self.first,self.second,self.empty = "X","O"," "
+        first_num = 0
+        second_num = 0
+        for row in board:
+            for pawn in row:
+                if pawn==self.first: first_num+=1
+                if pawn==self.second: second_num+=1
+        diff = first_num-second_num
+        if diff > 1 or diff < 0:
+            return False
+        
+        # step2: valid the state of board, if there exists situation that the game alread ended and continue playing
+        state = self.endGame(board)
+        if state == self.empty:
+            return True
+        elif state == self.first:
+            return diff==1
+        else:
+            return diff==0
+    
+    
+    def endGame(self,board):
+        # valid each row
+        for row in board:
+            if self.endGameLine(row):
+                return row[0]
+        # valid each column
+        left_dia,right_dia = "",""
+        for i in range(3):
+            col = ""
+            for j in range(3):
+                pawn = board[j][i]
+                if i==j:left_dia+=pawn
+                if i+j==2:right_dia+=pawn
+                col+=pawn
+            if self.endGameLine(col):
+                return col[0]
+        if self.endGameLine(left_dia):return left_dia[0]
+        if self.endGameLine(right_dia):return right_dia[0]
+        return self.empty
+    def endGameLine(self,line) -> bool:
+        pawnset = set()
+        for i in line:
+            if i == self.empty:
+                return False
+            else:
+                pawnset.add(i)
+        if len(pawnset)==1:
+            return True
+               
+// idea: use the difference between number of first and second pawns to clarify if the end game state is valid/continue game valid state
+// time complexity: O(R*C)
+// space complexity: O(R*C) 
