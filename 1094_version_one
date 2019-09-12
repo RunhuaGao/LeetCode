@@ -1,0 +1,15 @@
+class Solution:
+    def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
+        pick,drop = {},{}
+        for trip in trips:
+            passenger,start,end = trip
+            pick[start] = pick.get(start,0)+passenger
+            drop[end] = drop.get(end,0)+passenger
+        num = 0
+        for i in range(1001):
+            num-=drop.get(i,0)
+            if num+pick.get(i,0) > capacity:
+                return False
+            else:
+                num+=pick.get(i,0)
+        return num <= capacity

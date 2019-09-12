@@ -1,0 +1,18 @@
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        int[] stops = new int[1001];
+        for(int[] trip:trips){
+            int num = trip[0],start=trip[1],end = trip[2];
+            stops[start]+=num;stops[end]-=num;
+        }
+        int running_num = 0;
+        for(int stop:stops){
+            running_num+=stop;
+            if(running_num > capacity)
+                return false;
+        }
+        return true;
+    }
+}
+
+// idea: record the cumulative record at each stop, then running the whole process as simulation
