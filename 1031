@@ -1,0 +1,22 @@
+class Solution {
+    public int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        // idea: maintain a length = L+M sliding window
+        List<Integer> cSum = new ArrayList<>();
+        cSum.add(A[0]);
+        for(int i = 1;i<A.length;i++) cSum.add(A[i]+cSum.get(i-1));
+        int res = cSum.get(L+M-1),lMax = cSum.get(L-1),mMax = cSum.get(M-1);
+        for(int i = L+M;i<A.length;i++){
+            int mSum = cSum.get(i-L)-cSum.get(i-M-L),lSum = cSum.get(i-M)-cSum.get(i-M-L);
+            lMax = Math.max(lMax,lSum);
+            mMax = Math.max(mMax,mSum);
+            res = Math.max(res,Math.max(lMax+cSum.get(i)-cSum.get(i-M),mMax+cSum.get(i)-cSum.get(i-L)));
+        }
+        return res;
+    }
+}
+
+// idae: M could be after or before L
+// for this case, first find the maximum subarray with length L and M(line 10,11)
+// then add the lMax subarray to each length-M subarray later, add the mMax subarray to each length-L subarray later(line 12)
+// Time complexity: O(N)
+// Space complexity: O(N) (cSum) 
